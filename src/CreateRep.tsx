@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import WebCamPose from './WebCamPose';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, TextField } from '@material-ui/core';
 import useUniversalState from './reducers/useUniversalState';
 import pose from './pose';
 //@ts-ignore
 import Download from '@axetroy/react-download';
-import train from './trainRepRecognition';
-import pose1 from './poses8.json'
+
 
 enum StatesEnum {
     NotStarted = "Not Started",
@@ -18,18 +17,23 @@ enum StatesEnum {
 }
 
 export default function CreateRep() {
+
+    let myName = "CreateRep";
+    let parents = [myName];
+
     let startTime = 5;
-    let [state, setState] = useUniversalState<any>("CreateRep", [], {
+    let [state, setState] = useUniversalState<any>(myName, [], {
         startPoses: [],
         endPoses: [],
         stage: StatesEnum.NotStarted,
         time: 0,
         frequency: 1,
+        name: '',
     });
 
     const trainingExamples = 100;
 
-    var { startPoses, endPoses, stage, time, frequency } = state;
+    var { startPoses, endPoses, stage, time, frequency, name } = state;
     const sampleFrequency = 20;
 
     useEffect(() => {
@@ -45,11 +49,11 @@ export default function CreateRep() {
         }
 
 
-       
-    }, [time]);
+
+    }, [time, frequency, setState]);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         if (stage === StatesEnum.Init1Pose && time <= 0) {
             setState({ stage: StatesEnum.Creating1Pose })
         }
@@ -62,9 +66,9 @@ export default function CreateRep() {
             else {
                 if (pose && pose.keypoints) {
 
-                    setState({ time: 2/sampleFrequency, frequency: sampleFrequency, startPoses: [...startPoses, pose] });
+                    setState({ time: 2 / sampleFrequency, frequency: sampleFrequency, startPoses: [...startPoses, pose] });
                 } else {
-                    setState({ time: 2/sampleFrequency, frequency: sampleFrequency });
+                    setState({ time: 2 / sampleFrequency, frequency: sampleFrequency });
                 }
 
             }
@@ -80,29 +84,31 @@ export default function CreateRep() {
             }
             else {
                 if (pose && pose.keypoints) {
-                    setState({ time: 2/sampleFrequency, frequency: sampleFrequency, endPoses: [...endPoses, pose] });
+                    setState({ time: 2 / sampleFrequency, frequency: sampleFrequency, endPoses: [...endPoses, pose] });
                 } else {
-                    setState({ time: 2/sampleFrequency, frequency: sampleFrequency });
+                    setState({ time: 2 / sampleFrequency, frequency: sampleFrequency });
                 }
             }
         }
 
-    }, [time, stage])
+    }, [time, stage, endPoses, setState, startPoses, startTime])
 
 
 
 
 
-    return <div>
-        <button onClick={() => {
-            train(pose1);
-        }} >test</button>
-        <WebCamPose />
-        {stage === StatesEnum.NotStarted && <Button onClick={() => {
-            setState({ stage: StatesEnum.Init1Pose, time: startTime })
+    return <div style={{ margin: '10px' }}>
+        <TextField label="Name" variant="filled" onChange={(e) => setState({ name: e.target.value })} />
+        <WebCamPose parents={parents} />
+        {stage === StatesEnum.NotStarted && <Button
+            onClick={() => {
+                if (name !== '')
+                    setState({ stage: StatesEnum.Init1Pose, time: startTime })
+                else
+                    alert("Please type for this repition")
 
-
-        }} variant="outlined">Create new Rep</Button>}
+            }
+            } variant="outlined">Create new Rep</Button>}
         {stage === StatesEnum.Init1Pose &&
             <Typography variant='h3'>Starting in to create 1st Pose, get in position. {Math.floor(time)}</Typography>
         }

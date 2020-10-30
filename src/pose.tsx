@@ -7,7 +7,6 @@ export const setPose = (p:Pose)=>{
     pose.keypoints = [...p.keypoints]
 };
 
-setPose({score:5, keypoints:[]})
 
 
 

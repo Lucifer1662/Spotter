@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Webcam from 'react-webcam';
 import useUniversalState from './reducers/useUniversalState';
 
@@ -9,11 +9,12 @@ const videoConstraints = {
 };
 
 interface Props {
-
+    parents?: any[]
 }
 
-export default function WebcamCapture({  }: Props) {
-    let [video, setVideo] = useUniversalState("WebCamCapture", [])
+export default function WebcamCapture({ parents=[] }: Props) {
+    let s = useUniversalState("WebCamCapture", parents);
+    var setVideo = s[1];
 
      const webcamRef = React.useCallback(
         (current) => {            
@@ -23,8 +24,11 @@ export default function WebcamCapture({  }: Props) {
                 video.onloadedmetadata = () => {
                     setVideo({video})
                 };
+            }else{
+                setVideo(undefined)
             }
         },
+        // eslint-disable-next-line
         []
     );
 

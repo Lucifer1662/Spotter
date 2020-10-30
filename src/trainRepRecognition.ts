@@ -3,15 +3,12 @@ import * as tf from '@tensorflow/tfjs'
 import { Pose } from '@tensorflow-models/posenet';
 
 
-export default async function train(states: Array<Array<Pose>>) {
-    if (!states[0])
-        return;
+export async function trainModelFromStorage(name: string, states: Array<Array<Pose>>, progress?: (info: tf.History)=>void){
     const inputSize = states[0][0].keypoints.length * 2;
     const outputSize = states.length;
 
-
     try {
-        var model = await tf.loadLayersModel('localstorage://my-model-5');
+        var model = await tf.loadLayersModel('localstorage://' + name);
     } catch (e) {
         model = tf.sequential({
             layers: [
@@ -21,6 +18,18 @@ export default async function train(states: Array<Array<Pose>>) {
             ]
         });
     }
+
+    await train(model, states, progress);
+
+    await model.save('localstorage://' + name);
+}
+
+export default async function train(model: tf.LayersModel, states: Array<Array<Pose>>, progress?: (info : tf.History)=>void) {
+    if (!states[0])
+        return;
+    const inputSize = states[0][0].keypoints.length * 2;
+    const outputSize = states.length;
+
 
 
 
@@ -59,9 +68,6 @@ export default async function train(states: Array<Array<Pose>>) {
     const data = tf.tensor(dataD);
     const labels = tf.oneHot(labelsD, outputSize);
 
-    data.print();
-    labels.print();
-
 
 
     for (let index = 0; index < 10; index++) {
@@ -70,15 +76,8 @@ export default async function train(states: Array<Array<Pose>>) {
             epochs: 10,
             batchSize: 16,
         }).then(info => {
-            console.log('Final Loss', info.history.loss[0]);
+            if(progress)
+                progress(info);
         });
     }
-
-
-    // Predict 3 random samples.
-    const prediction = model.predict(data);
-    await model.save('localstorage://my-model-5');
-    //@ts-ignore
-    prediction.print();
-
 }
