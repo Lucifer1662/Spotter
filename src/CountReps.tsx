@@ -37,6 +37,6 @@ export default function CountReps() {
                 
         }}
         />
-        <Button variant="contained" onClick={()=>{setCount({ poseId: 0, count: 0, time:0 })}}>Clear</Button>
+        <Button variant="contained" onClick={()=>{setCount({ count: 0 })}}>Clear</Button>
     </div>
 }

@@ -30,8 +30,8 @@ export default function PoseCounter({ parents = [] }: Props) {
                 if (pid !== undefined && poseId !== undefined && pid !== poseId && pid < 2 && poseId < 2) {
                     c = 1;
                 }
-
-                setState({ poseId: pid, count: count + c, time: time + 1 });
+                
+                setState((prev:any)=>({ poseId: pid, count: prev.count + c, time: prev.time + 1 }));
 
 
             } else {
