@@ -24,9 +24,13 @@ function changeState(state: any, parents: any[], data: any, merge: boolean): any
             Object.keys(data).forEach((key: string) => {
                 let value = data[key];
                 if (_.isFunction(value)) {
+                    console.log(state[key])
                     data[key] = value(state[key]);
                 }
             })
+        }
+        if(_.isFunction(data)){
+            data = data(state)
         }
 
 

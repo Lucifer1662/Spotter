@@ -8,6 +8,11 @@ export async function loadFromLocal(name: string) {
     repnet = await tf.loadLayersModel('localstorage://' + name);
 }
 
+export async function loadModel(model: tf.LayersModel) {
+    clearRepnet();
+    repnet = model;
+}
+
 export function clearRepnet(){
     if(repnet)
         repnet.dispose();

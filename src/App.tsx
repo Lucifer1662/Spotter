@@ -7,14 +7,13 @@ import Header from './Header';
 import CountReps from './CountReps';
 import TrainModel from './TrainModel';
 import { ThemeProvider, createMuiTheme, Box, CssBaseline } from '@material-ui/core';
+import DownloadLocalModels from './DownloadLocalModels';
 
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
   },
 })
-
-console.log(theme)
 
 function App() {
   return (
@@ -33,6 +32,9 @@ function App() {
               </Route>
               <Route path="/TrainModel" exact>
                 <TrainModel />
+              </Route>
+              <Route path="/DownloadLocalModels" exact>
+                <DownloadLocalModels />
               </Route>
               <Route path='*' exact={true}>
                 <Redirect to="/CountReps" />

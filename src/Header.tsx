@@ -24,6 +24,10 @@ export default function Header() {
                     <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/TrainModel") }} >
                         Train Model
                     </Button>
+
+                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/DownloadLocalModels") }} >
+                        Download Local Models
+                    </Button>
             </div>
 
             </div>

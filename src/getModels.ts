@@ -1,7 +1,16 @@
-
+import * as tf from '@tensorflow/tfjs'
 const tensorflowPath: string = "tensorflowjs_models/";
+const publicModelNames = require("./publicModelNames.json");
 
 export default async function getModels() {
+
+    let publicModels = await getPublicModels();
+    let localModels = await getLocalModels();
+
+    return [...publicModels, ...localModels];
+}
+
+export async function getLocalModelNames() {
 
     let modelNames: string[] = []
 
@@ -9,11 +18,9 @@ export default async function getModels() {
         var key = localStorage.key(i);
         if (key && key.startsWith(tensorflowPath)) {
             let name = key.substr(tensorflowPath.length);
-
             let slashi = name.search("/");
             if (slashi !== -1)
                 name = name.substr(0, slashi);
-
                 
             if (!modelNames.some((v) => v === name))
                 modelNames.push(name);
@@ -24,4 +31,21 @@ export default async function getModels() {
     modelNames.map(s=>'localstorage://'+s);
 
     return modelNames;
+}
+
+export async function getLocalModels(){
+    var names = await getLocalModelNames();
+    return Promise.all(names.map(async name=>({name:"local/"+name, load: () => tf.loadLayersModel("localstorage://"+name)})));
+}
+
+
+
+export function getPublicModels() {
+    return Promise.all(getPublicModelNames().map(async name=>({name:"public/"+name, load: () => {
+        console.log(process.env.PUBLIC_URL + '/' + name)
+        return tf.loadLayersModel( 'http://localhost:5000/' + name)}})))
+}
+
+export function getPublicModelNames() : string[] {
+    return publicModelNames;
 }

@@ -2,6 +2,7 @@
   "name": "spotter",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://lucifer1662.github.io/Hand-written-number-recognition/",
   "dependencies": {
     "@axetroy/react-download": "^1.1.1",
     "@material-ui/core": "^4.11.0",
@@ -39,7 +40,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publicModels": "ts-node --project tsconfigTFNode.json --transpile-only src/modelsInPublicGenerator"
   },
   "eslintConfig": {
     "extends": "react-app"
