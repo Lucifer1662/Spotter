@@ -13,19 +13,19 @@ export default function Header() {
                         Spotter
                     </Typography>
 
-                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/Spotter/CountReps") }} >
+                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/CountReps") }} >
                         Count Reps
                     </Button>
 
-                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/Spotter/CreateRep") }} >
+                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/CreateRep") }} >
                         Create Rep
                     </Button>
 
-                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/Spotter/TrainModel") }} >
+                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/TrainModel") }} >
                         Train Model
                     </Button>
 
-                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/Spotter/DownloadLocalModels") }} >
+                    <Button color="inherit" style={{ flex: 1, marginLeft: '15px', marginRight: '15px' }} onClick={() => { history.push("/DownloadLocalModels") }} >
                         Download Local Models
                     </Button>
             </div>

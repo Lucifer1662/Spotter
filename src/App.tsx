@@ -15,14 +15,14 @@ const theme = createMuiTheme({
   },
 })
 
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <BrowserRouter>
+      <BrowserRouter basename="/Spotter">
         <Switch>
-          <Route path="/Spotter/">
-            
+          <Route path="">
             <Header />
             <Box my={4} className="App-header" color="background">
               <Route path="/CreateRep" exact>
@@ -38,7 +38,7 @@ function App() {
                 <DownloadLocalModels />
               </Route>
               <Route path='*' exact={true}>
-                <Redirect to="/Spotter/CountReps" />
+                <Redirect to="/CountReps" />
               </Route>
             </Box>
           </Route>
