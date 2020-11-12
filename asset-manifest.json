@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Spotter/static/css/main.9850759f.chunk.css",
-    "main.js": "/Spotter/static/js/main.82ee75ce.chunk.js",
-    "main.js.map": "/Spotter/static/js/main.82ee75ce.chunk.js.map",
+    "main.js": "/Spotter/static/js/main.a2d29f7a.chunk.js",
+    "main.js.map": "/Spotter/static/js/main.a2d29f7a.chunk.js.map",
     "runtime-main.js": "/Spotter/static/js/runtime-main.80962c0c.js",
     "runtime-main.js.map": "/Spotter/static/js/runtime-main.80962c0c.js.map",
     "static/js/2.66fe66a1.chunk.js": "/Spotter/static/js/2.66fe66a1.chunk.js",
     "static/js/2.66fe66a1.chunk.js.map": "/Spotter/static/js/2.66fe66a1.chunk.js.map",
     "index.html": "/Spotter/index.html",
-    "precache-manifest.cfc22e41fa65c57212f76267e0eaa694.js": "/Spotter/precache-manifest.cfc22e41fa65c57212f76267e0eaa694.js",
+    "precache-manifest.ccfbf75f9796223631b4e68441b9dd62.js": "/Spotter/precache-manifest.ccfbf75f9796223631b4e68441b9dd62.js",
     "service-worker.js": "/Spotter/service-worker.js",
     "static/css/main.9850759f.chunk.css.map": "/Spotter/static/css/main.9850759f.chunk.css.map",
     "static/js/2.66fe66a1.chunk.js.LICENSE.txt": "/Spotter/static/js/2.66fe66a1.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.80962c0c.js",
     "static/js/2.66fe66a1.chunk.js",
     "static/css/main.9850759f.chunk.css",
-    "static/js/main.82ee75ce.chunk.js"
+    "static/js/main.a2d29f7a.chunk.js"
   ]
 }
