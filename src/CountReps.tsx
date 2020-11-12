@@ -35,7 +35,7 @@ export default function CountReps() {
         </div>
         <DropDownBox name="model" title="Model" parents={parents} values={models}
             onChange={async (value: any) => {
-                if (value)
+                if (value?.load)
                     loadModel(await value.load());
                 else
                     clearRepnet();
