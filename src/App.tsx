@@ -21,7 +21,8 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Switch>
-          <Route path="">
+          <Route path="/Spotter/">
+            
             <Header />
             <Box my={4} className="App-header" color="background">
               <Route path="/CreateRep" exact>
@@ -37,7 +38,7 @@ function App() {
                 <DownloadLocalModels />
               </Route>
               <Route path='*' exact={true}>
-                <Redirect to="/CountReps" />
+                <Redirect to="/Spotter/CountReps" />
               </Route>
             </Box>
           </Route>
