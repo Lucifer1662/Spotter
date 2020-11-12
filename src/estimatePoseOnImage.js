@@ -3,7 +3,9 @@ const posenet = require('@tensorflow-models/posenet');
 
 var net;
 async function load() {
-    net = await posenet.load();
+    net = await posenet.load({
+        outputStride: 8,
+        inputResolution:{height:100, width:100}});
 }
 
 
