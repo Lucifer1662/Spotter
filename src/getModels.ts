@@ -43,7 +43,7 @@ export async function getLocalModels(){
 export function getPublicModels() {
     return Promise.all(getPublicModelNames().map(async name=>({name:"public/"+name, load: () => {
         console.log(process.env.PUBLIC_URL + '/' + name)
-        return tf.loadLayersModel( 'http://localhost:5000/' + name)}})))
+        return tf.loadLayersModel( 'https://still-sierra-49247.herokuapp.com/' + name)}})))
 }
 
 export function getPublicModelNames() : string[] {

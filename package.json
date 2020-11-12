@@ -2,7 +2,7 @@
   "name": "spotter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://lucifer1662.github.io/Hand-written-number-recognition/",
+  "homepage": "https://lucifer1662.github.io/Spotter/",
   "dependencies": {
     "@axetroy/react-download": "^1.1.1",
     "@material-ui/core": "^4.11.0",
@@ -22,6 +22,7 @@
     "@types/react-webcam": "^3.0.0",
     "@types/recharts": "^1.8.16",
     "@types/underscore": "^1.10.24",
+    "gh-pages": "^3.1.0",
     "lodash": "^4.17.20",
     "material-ui": "^0.20.2",
     "react": "^16.13.1",
@@ -41,7 +42,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publicModels": "ts-node --project tsconfigTFNode.json --transpile-only src/modelsInPublicGenerator"
+    "publicModels": "ts-node --project tsconfigTFNode.json --transpile-only src/modelsInPublicGenerator",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
