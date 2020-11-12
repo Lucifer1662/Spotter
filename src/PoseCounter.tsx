@@ -43,7 +43,7 @@ export default function PoseCounter({ parents = [] }: Props) {
 
         return () => clearTimeout(timer);
 
-    }, [time, count, poseId]);
+    }, [time]);
 
     return (
         <div>
