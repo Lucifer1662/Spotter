@@ -40,12 +40,14 @@ export async function getLocalModels(){
 
 
 
-export function getPublicModels() {
-    return Promise.all(getPublicModelNames().map(async name=>({name:"public/"+name, load: () => {
+export async function getPublicModels() {
+    var modelNames = await getPublicModelNames();
+    return Promise.all(modelNames.map(async (name:any)=>({name:"public/"+name, load: () => {
         console.log(process.env.PUBLIC_URL + '/' + name)
         return tf.loadLayersModel( 'https://still-sierra-49247.herokuapp.com/Models/' + name)}})))
 }
 
-export function getPublicModelNames() : string[] {
-    return publicModelNames;
+export async function getPublicModelNames() : Promise<string[]>  {
+    var response =  await fetch("https://still-sierra-49247.herokuapp.com/Models/modelNames.json");
+    return await response.json()
 }
