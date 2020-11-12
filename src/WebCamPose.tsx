@@ -40,14 +40,17 @@ export default function WebCamePose({ parents = [] }: Props) {
     render()
   }, [video])
 
-  return <div style={{ position: 'relative' }}>
+  return <div style={{width: '100%',}}>
+    <div style={{ position: 'relative', width: '100%', paddingTop: '100%'}}>
     
     <WebcamCapture parents={parents} />
     {showBones && 
-    <VideoWithArmature pose={pose} width={video ?.width} height={video ?.height} style={{ position: 'absolute', left: 0, right: 0, width: video ?.width, height: video ?.height }} />
+    <VideoWithArmature pose={pose} width={video ?.width} height={video ?.height} />
     }
-    <FormControlLabel
-            control={<Checkbox name="showBones" value={!showBones} onChange={(e) => setShowBones(e.target.checked)} />}
+    
+  </div>
+  <FormControlLabel
+            control={<Checkbox name="showBones" defaultChecked value={showBones} onChange={(e) => setShowBones(e.target.checked)} />}
             label="Show Bones"
         />
   </div>

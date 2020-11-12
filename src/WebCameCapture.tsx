@@ -4,15 +4,17 @@ import useUniversalState from './reducers/useUniversalState';
 
 const videoConstraints = {
     facingMode: "user",
-    width: 600,
-    height: 500
+    width: 300,
+    height: 300
 };
 
 interface Props {
-    parents?: any[]
+    parents?: any[],
+    width?:number,
+    height?: number
 }
 
-export default function WebcamCapture({ parents=[] }: Props) {
+export default function WebcamCapture({ parents=[], width=600, height=500 }: Props) {
     let s = useUniversalState("WebCamCapture", parents);
     var setVideo = s[1];
 
@@ -33,13 +35,14 @@ export default function WebcamCapture({ parents=[] }: Props) {
     );
 
     return (
-        <div style={{ position: 'relative', display: 'unset' }}>
+        <div style={{ position: 'absolute', top:0, left:0, right:0, bottom:0 }}>
             <Webcam
+                style={{objectFit:"cover", width:"100%", height:"100%"}}
                 audio={false}
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
-                width={600}
-                height={500}
+                width={200}
+                height={200}
                 videoConstraints={videoConstraints}
             />
         </div>

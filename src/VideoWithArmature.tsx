@@ -15,7 +15,7 @@ function draw(ctx: any, frameCount: number, pose?: Pose){
     if (pose && pose.keypoints) {
         pose.keypoints.forEach(keypoint => {
                 ctx.beginPath()
-                ctx.arc(keypoint.position.x, keypoint.position.y, 5, 0, 2 * Math.PI)
+                ctx.arc(keypoint.position.x, keypoint.position.y, ctx.canvas.width*0.01, 0, 2 * Math.PI)
                 ctx.fill()
         })
 
@@ -52,5 +52,7 @@ export default function VideoWithArmature({ pose, ...props }: Props) {
         }
     }, [pose])
 
-    return <canvas ref={canvasRef} {...props} />
+    return  <div style={{ position: 'absolute', top:0, left:0, right:0, bottom:0 }}>        
+        <canvas style={{objectFit:"cover", width:"100%", height:"100%"}} ref={canvasRef} {...props} />
+        </div>
 }

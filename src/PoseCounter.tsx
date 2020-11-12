@@ -48,6 +48,6 @@ export default function PoseCounter({ parents = [] }: Props) {
     return (
         <div>
             {/* <Typography>{poseId}</Typography> */}
-            <Typography color="primary" variant="h3">{Math.floor(count / 2)}</Typography>
+            <Typography align="center" color="primary" variant="h1">{Math.floor(count / 2)}</Typography>
         </div>)
 }

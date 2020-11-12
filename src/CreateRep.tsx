@@ -97,9 +97,17 @@ export default function CreateRep() {
 
 
 
-    return <div style={{ margin: '10px' }}>
+    return   <div style={{ width: '50%', maxHeight: "30%", flex: 1, maxWidth: "60vh" }}>
         <TextField label="Name" variant="filled" onChange={(e) => setState({ name: e.target.value })} />
-        <WebCamPose parents={parents} />
+      
+        
+
+        <div style={{ width: '100%', display:'flex', flexDirection:'column', alignItems:'center'}}>
+            <div style={{ width: '100%',  flex:1 }}>
+                <WebCamPose parents={parents} />
+            </div>
+        </div>
+        
         {stage === StatesEnum.NotStarted && <Button
             onClick={() => {
                 if (name !== '')
