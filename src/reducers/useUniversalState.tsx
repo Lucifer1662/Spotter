@@ -3,7 +3,7 @@ import onChange from './onChange';
 import { useEffect } from 'react';
 import lodash from 'lodash';
 
-function getState(state: any, parents: string[]) : any{
+export function getState(state: any, parents: string[]) : any{
     let parent = parents.shift();
 
     //if my parent is null

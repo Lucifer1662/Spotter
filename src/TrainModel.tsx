@@ -5,6 +5,7 @@ import { TextField, Button, Checkbox, FormControlLabel } from '@material-ui/core
 import { trainModelFromStorage } from './trainRepRecognition';
 import ExistingModelDropDown from './ExistingModelDrowDown';
 import { XAxis, CartesianGrid, Line, LineChart, Tooltip, YAxis } from 'recharts'
+import getState from "./reducers/getState"
 
 interface Props {
     parents?: any[]
@@ -12,13 +13,17 @@ interface Props {
 
 export default function TrainModel({ parents = [] }: Props) {
     let myName = "TrainModel";
+    let oldParents = parents;
 
-    let [{ name, posess, existingModel, existingModelSelect }, setState] = useUniversalState<any>(myName, parents, {
+    let [{ name, posess, existingModel, existingModelSelect, isTraining, keepTraining }, setState] = 
+    useUniversalState<any>(myName, parents, {
         posess: undefined,
         name: '',
         existingModel: false,
         existingModelSelect: undefined,
-        
+        isTraining: false,
+        keepTraining: true,
+
     });
 
     let [infos, setInfos] = useState<any[]>([]);
@@ -26,10 +31,12 @@ export default function TrainModel({ parents = [] }: Props) {
     parents = [...parents, myName];
 
     const trainProgress = (info: tf.History) => {
-        setInfos(prevInfos => ([...prevInfos, {loss: info.history.loss[0], time: prevInfos.length} ]) );
+        setInfos(prevInfos => ([...prevInfos, { loss: info.history.loss[0], time: prevInfos.length }]));
     }
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
+        
+
         if (!existingModel && name === '') {
             alert("Please pick a name for this model");
             return;
@@ -40,21 +47,36 @@ export default function TrainModel({ parents = [] }: Props) {
             return;
         }
 
+
+
         if (posess) {
-            if (existingModel) {
-                if (existingModelSelect.fromLocal) {
-                    trainModelFromStorage(existingModelSelect.name, posess, trainProgress);
+            if (!isTraining) {
+                if (existingModel) {
+                    if (existingModelSelect.fromLocal) {
+                        setState({ isTraining: true })
+                        trainModelFromStorage(existingModelSelect.name, posess, trainProgress);
+                       
+                    }
+                } else {
+                    setState({ isTraining: true });
+                    while(getState(myName, oldParents).keepTraining){
+                        await trainModelFromStorage(name, posess, trainProgress);
+                    }
+                    setState({keepTraining: true});
+                    setState({ isTraining: false });
+                   
                 }
-            } else {
-                trainModelFromStorage(name, posess, trainProgress);
+            }else{
+                setState({keepTraining: false});
             }
+
 
         }
         else
             alert("Please pick training data")
     }
 
-    const newName = <TextField label="Name" style={{background: undefined}} color='primary' variant="standard" onChange={(e) => setState({ name: e.target.value })} />
+    const newName = <TextField label="Name" style={{ background: undefined }} color='primary' variant="standard" onChange={(e) => setState({ name: e.target.value })} />
 
 
     const existingModelDropDown = <ExistingModelDropDown parents={parents} onChange={(e) => setState({ existingModelSelect: e })} />
@@ -86,7 +108,7 @@ export default function TrainModel({ parents = [] }: Props) {
 
             }
         }} />
-        <Button variant='contained' onClick={onSubmit}>Train</Button>
+        <Button variant='contained' onClick={onSubmit}>{isTraining?(keepTraining?"Stop":"Stopping"):"Train"}</Button>
         <LineChart
             width={400}
             height={400}
